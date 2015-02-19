@@ -2,6 +2,7 @@ from mailrobot.models import MailBody, Mail, Address, Signature
 from duck_utils.models import MailProperty, Property
 import xadmin
 from xadmin.views import filter_hook
+from xadmin.layout import Layout, Fieldset, Container, Col
 
 
 class MailPropertyInline(object):
@@ -23,12 +24,29 @@ class MailPropertyInline(object):
 
 class MailBodyAdmin(object):
     inlines = [MailPropertyInline]
+    readonly_fields = ['name']
+    form_layout = Layout(Container(Col('full',
+                                       Fieldset('',
+                                                'name',
+                                                'subject',
+                                                'body'
+                                                , css_class="unsort no_title"), horizontal=True, span=12)
+                                   ))
+
     @filter_hook
     def get_list_queryset(self):
         query = super(MailBodyAdmin, self).get_list_queryset()
         if not self.user.is_superuser:
             query = query.filter(mail_property__property__in=self.user.setting_user.property.all())
         return query
+
+    @filter_hook
+    def get_readonly_fields(self):
+        if self.user.is_superuser:
+            return []
+        else:
+            return self.readonly_fields
+
 
 xadmin.site.register(MailBody, MailBodyAdmin)
 xadmin.site.register(Mail)
