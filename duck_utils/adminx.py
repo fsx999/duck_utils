@@ -12,7 +12,8 @@ class MailPropertyInline(object):
     max_num = 1
     readonly_fields = ['property', 'help_text']
     fields = ['property',
-              'help_text',]
+              'help_text']
+
     @filter_hook
     def get_readonly_fields(self):
         if self.user.is_superuser:
@@ -21,9 +22,9 @@ class MailPropertyInline(object):
             return self.readonly_fields
 
 
-
 class MailBodyAdmin(object):
     inlines = [MailPropertyInline]
+
     readonly_fields = ['name']
     form_layout = Layout(Container(Col('full',
                                        Fieldset('',
@@ -39,6 +40,7 @@ class MailBodyAdmin(object):
         if not self.user.is_superuser:
             query = query.filter(mail_property__property__in=self.user.setting_user.property.all())
         return query
+
 
     @filter_hook
     def get_readonly_fields(self):
