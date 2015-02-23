@@ -15,7 +15,7 @@ class Property(models.Model):
 class MailProperty(models.Model):
     mail = models.OneToOneField(MailBody, related_name='mail_property')
     property = models.ForeignKey(Property)
-    help_text = models.TextField()
+    help_text = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "Mail properties"
