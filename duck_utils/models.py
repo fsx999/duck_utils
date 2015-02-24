@@ -19,3 +19,14 @@ class MailProperty(models.Model):
 
     class Meta:
         verbose_name_plural = "Mail properties"
+
+
+class TemplateHtmlModel(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    label = models.CharField(max_length=120)
+    help_text = models.TextField(blank=True, null=True)
+    content = models.TextField()
+    property = models.ForeignKey(Property, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

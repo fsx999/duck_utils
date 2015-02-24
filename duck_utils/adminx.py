@@ -1,5 +1,5 @@
 from mailrobot.models import MailBody, Mail, Address, Signature
-from duck_utils.models import MailProperty, Property
+from duck_utils.models import MailProperty, Property, TemplateHtmlModel
 import xadmin
 from xadmin.views import filter_hook
 from xadmin.layout import Layout, Fieldset, Container, Col
@@ -49,9 +49,12 @@ class MailBodyAdmin(object):
         else:
             return self.readonly_fields
 
+class TemplateHtmlModelAdmin(object):
+    pass
 
 xadmin.site.register(MailBody, MailBodyAdmin)
 xadmin.site.register(Mail)
 xadmin.site.register(Address)
 xadmin.site.register(Signature)
 xadmin.site.register(Property)
+xadmin.site.register(TemplateHtmlModel, TemplateHtmlModelAdmin)
