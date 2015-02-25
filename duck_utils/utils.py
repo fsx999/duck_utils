@@ -10,5 +10,9 @@ def get_recipients(individu, cod_anu):
     if settings.DEBUG:
         recipients = (settings.EMAIL_DEV, )
     else:
-        recipients = (individu.get_email(cod_anu), email_ied(individu))
+        email = individu.get_email(cod_anu)
+        if email:
+            recipients = (individu.get_email(cod_anu), email_ied(individu))
+        else:
+            recipients = (email_ied(individu), )
     return recipients
