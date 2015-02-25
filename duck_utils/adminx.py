@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from mailrobot.models import MailBody, Mail, Address, Signature
 import reversion
 from wkhtmltopdf.views import PDFTemplateView
@@ -51,9 +52,16 @@ class MailBodyAdmin(object):
         else:
             return self.readonly_fields
 
+
 class TemplateHtmlModelAdmin(object):
     reversion_enable = True
     readonly_fields = ['get_preview_button']
+
+    @filter_hook
+    def get_field_attrs(self, db_field, **kwargs):
+        if db_field.name == 'content':
+            return {'widget': CKEditorWidget}
+        return super(TemplateHtmlModelAdmin, self).get_field_attrs(db_field, **kwargs)
 
 
 class PreviewHtmlModelView(PDFTemplateView):
