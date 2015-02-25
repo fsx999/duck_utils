@@ -1,5 +1,6 @@
 from mailrobot.models import MailBody, Mail, Address, Signature
 import reversion
+from wkhtmltopdf.views import PDFTemplateView
 from duck_utils.models import MailProperty, Property, TemplateHtmlModel
 import xadmin
 from xadmin.views import filter_hook
@@ -52,6 +53,29 @@ class MailBodyAdmin(object):
 
 class TemplateHtmlModelAdmin(object):
     reversion_enable = True
+    readonly_fields = ['get_preview_button']
+
+
+class PreviewHtmlModelView(PDFTemplateView):
+    filename = "PreviewHtml_{}_{}.pdf"
+    template_name = ""
+
+    def get_template_names(self):
+        pk = self.kwargs.get('pk', None)
+        res = TemplateHtmlModel.objects.get(pk=pk)
+        return res.name
+
+    def get_filename(self):
+        return self.filename.format(self.kwargs.get('pk', 'Anomalie'), self.kwargs.get('session', 'Anomalie'))
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk', None)
+        res = TemplateHtmlModel.objects.get(pk=pk)
+        context = super(PreviewHtmlModelView, self).get_context_data(**kwargs)
+        c = res.get_context_test()
+        context.update(c)
+
+        return context
 
 xadmin.site.register(MailBody, MailBodyAdmin)
 xadmin.site.register(Mail)
