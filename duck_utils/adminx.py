@@ -57,11 +57,11 @@ class TemplateHtmlModelAdmin(object):
     reversion_enable = True
     readonly_fields = ['get_preview_button']
 
-    @filter_hook
-    def get_field_attrs(self, db_field, **kwargs):
-        if db_field.name == 'content':
-            return {'widget': CKEditorWidget}
-        return super(TemplateHtmlModelAdmin, self).get_field_attrs(db_field, **kwargs)
+    # @filter_hook
+    # def get_field_attrs(self, db_field, **kwargs):
+    #     if db_field.name == 'content':
+    #         return {'widget': CKEditorWidget}
+    #     return super(TemplateHtmlModelAdmin, self).get_field_attrs(db_field, **kwargs)
 
 
 class PreviewHtmlModelView(PDFTemplateView):
