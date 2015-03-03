@@ -1,3 +1,4 @@
+# coding=utf-8
 __author__ = 'paulguichon'
 from django.conf import settings
 
@@ -16,3 +17,7 @@ def get_recipients(individu, cod_anu):
         else:
             recipients = (email_ied(individu), )
     return recipients
+
+
+
+
