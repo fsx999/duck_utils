@@ -27,7 +27,7 @@ class MailPropertyInline(object):
 
 class MailBodyAdmin(object):
     inlines = [MailPropertyInline]
-
+    hidden_menu = True
     readonly_fields = ['name']
     form_layout = Layout(Container(Col('full',
                                        Fieldset('',
@@ -56,6 +56,7 @@ class MailBodyAdmin(object):
 class TemplateHtmlModelAdmin(object):
     reversion_enable = True
     readonly_fields = ['get_preview_button']
+    hidden_menu = True
 
     # @filter_hook
     # def get_field_attrs(self, db_field, **kwargs):
