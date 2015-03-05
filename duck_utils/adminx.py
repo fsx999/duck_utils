@@ -1,6 +1,5 @@
 from ckeditor.widgets import CKEditorWidget
 from mailrobot.models import MailBody, Mail, Address, Signature
-import reversion
 from wkhtmltopdf.views import PDFTemplateView
 from duck_utils.models import MailProperty, Property, TemplateHtmlModel
 import xadmin
