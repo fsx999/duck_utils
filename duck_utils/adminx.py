@@ -1,6 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from mailrobot.models import MailBody, Mail, Address, Signature
 from wkhtmltopdf.views import PDFTemplateView
+from django_apogee.models import Etape
 from duck_utils.models import MailProperty, Property, TemplateHtmlModel, EtapeSettings, Salle
 import xadmin
 from xadmin.views import filter_hook
@@ -87,7 +88,11 @@ class PreviewHtmlModelView(PDFTemplateView):
 
 
 class EtapeSettingsAdmin(object):
-    pass
+    @filter_hook
+    def get_field_attrs(self, db_field, **kwargs):
+        if db_field.name == 'etape':
+            return {'queryset': Etape.objects.by_centre_gestion('IED')}
+        return super(EtapeSettingsAdmin, self).get_field_attrs(db_field, **kwargs)
 
 
 class SalleAdmin(object):
