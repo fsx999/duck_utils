@@ -7,6 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from mailrobot.models import MailBody
 from wkhtmltopdf import wkhtmltopdf
+from django_apogee.models import Etape
 
 
 @python_2_unicode_compatible
@@ -58,3 +59,11 @@ class TemplateHtmlModel(models.Model):
     get_preview_button.short_description = "Preview"
 
 
+class EtapeSettings(models.Model):
+    etape = models.ForeignKey(Etape)
+    cod_anu = models.IntegerField()
+    contact_info = models.TextField() # Coordonnées du ou des responsables de l'étape.
+
+
+class Salle(models.Model):
+    label = models.CharField(max_length=120)
