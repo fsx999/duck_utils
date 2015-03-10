@@ -60,10 +60,18 @@ class TemplateHtmlModel(models.Model):
 
 
 class EtapeSettings(models.Model):
+    class Meta:
+        verbose_name_plural = "etape settings"
+
     etape = models.ForeignKey(Etape)
     cod_anu = models.IntegerField()
     contact_info = models.TextField() # Coordonnées du ou des responsables de l'étape.
 
+    def __str__(self):
+        return "{} {}".format(self.etape, self.cod_anu)
 
 class Salle(models.Model):
     label = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.label

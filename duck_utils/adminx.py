@@ -1,7 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from mailrobot.models import MailBody, Mail, Address, Signature
 from wkhtmltopdf.views import PDFTemplateView
-from duck_utils.models import MailProperty, Property, TemplateHtmlModel
+from duck_utils.models import MailProperty, Property, TemplateHtmlModel, EtapeSettings, Salle
 import xadmin
 from xadmin.views import filter_hook
 from xadmin.layout import Layout, Fieldset, Container, Col
@@ -85,6 +85,16 @@ class PreviewHtmlModelView(PDFTemplateView):
 
         return context
 
+
+class EtapeSettingsAdmin(object):
+    pass
+
+
+class SalleAdmin(object):
+    pass
+
+xadmin.site.register(EtapeSettings, EtapeSettingsAdmin)
+xadmin.site.register(Salle, SalleAdmin)
 xadmin.site.register(MailBody, MailBodyAdmin)
 xadmin.site.register(Mail)
 xadmin.site.register(Address)
