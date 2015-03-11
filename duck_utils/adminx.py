@@ -27,7 +27,6 @@ class MailPropertyInline(object):
 
 class MailBodyAdmin(object):
     inlines = [MailPropertyInline]
-    hidden_menu = True
     readonly_fields = ['name']
     form_layout = Layout(Container(Col('full',
                                        Fieldset('',
