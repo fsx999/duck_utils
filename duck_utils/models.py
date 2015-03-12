@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from mailrobot.models import MailBody
 from wkhtmltopdf import wkhtmltopdf
 from django_apogee.models import Etape
+from duck_utils.utils import make_pdf
 
 
 @python_2_unicode_compatible
@@ -43,15 +44,7 @@ class TemplateHtmlModel(models.Model):
         return eval(self.context_test)
 
     def get_pdf_file(self, context, output=None):
-        template = render_to_string(self.name, context)
-        f = tempfile.NamedTemporaryFile(mode='w+b', bufsize=-1,
-                                        suffix='.html', prefix='tmp', dir=None,
-                                        delete=True)
-        f.write(template)
-        f.flush()
-        pdf_file = wkhtmltopdf([f.name], output)
-        f.close()
-        return pdf_file
+        return make_pdf(self.name, context, output)
 
     def get_preview_button(self):
         url = reverse('preview_html', kwargs={'pk': self.pk})
