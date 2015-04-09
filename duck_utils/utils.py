@@ -23,10 +23,12 @@ def get_recipients(individu, cod_anu):
             recipients = (email_ied(individu), )
     return recipients
 
+
 def make_pdf(name, context, output=None):
     template = render_to_string(name, context)
     content = smart_text(template)
     content = make_absolute_paths(content)
+    print content
     f = tempfile.NamedTemporaryFile(mode='w+b', bufsize=-1,
                                     suffix='.html', prefix='tmp', dir=None,
                                     delete=True)
@@ -35,3 +37,7 @@ def make_pdf(name, context, output=None):
     pdf_file = wkhtmltopdf([f.name], output)
     f.close()
     return pdf_file
+
+
+def append_pdf(input,output):
+    [output.addPage(input.getPage(page_num)) for page_num in range(input.numPages)]
