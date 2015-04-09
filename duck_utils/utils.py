@@ -28,7 +28,6 @@ def make_pdf(name, context, output=None):
     template = render_to_string(name, context)
     content = smart_text(template)
     content = make_absolute_paths(content)
-    print content
     f = tempfile.NamedTemporaryFile(mode='w+b', bufsize=-1,
                                     suffix='.html', prefix='tmp', dir=None,
                                     delete=True)

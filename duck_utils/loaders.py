@@ -1,9 +1,9 @@
 from django.template import TemplateDoesNotExist
-from django.template.loader import BaseLoader
+from django.template.loaders.base import Loader
 from duck_utils.models import TemplateHtmlModel
 
 
-class Loader(BaseLoader):
+class Loader(Loader):
     is_usable = True
 
     def load_template_source(self, template_name, template_dirs=None):
