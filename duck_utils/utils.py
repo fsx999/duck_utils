@@ -26,6 +26,7 @@ def get_recipients(individu, cod_anu):
             recipients = (email_ied(individu), )
     return recipients
 
+
 def render_to_temporary_file(template_name, context,  mode='w+b', bufsize=-1,
                                  suffix='.html', prefix='tmp', dir=None,
                                  delete=True):
@@ -120,6 +121,7 @@ def remove_page_pdf(file, nb=1):
     output.write(result)
 
     return result
+
 
 def num_page(pdf):
     return PdfFileReader(pdf).getNumPages()
