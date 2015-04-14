@@ -27,6 +27,14 @@ def get_recipients(individu, cod_anu):
     return recipients
 
 
+def get_email_envoi(email):
+    if settings.DEBUG:
+        emails = (settings.EMAIL_DEV, )
+    else:
+        emails = (email, )
+    return emails
+
+
 def render_to_temporary_file(template_name, context,  mode='w+b', bufsize=-1,
                                  suffix='.html', prefix='tmp', dir=None,
                                  delete=True):
