@@ -29,9 +29,9 @@ def get_recipients(individu, cod_anu):
 
 def get_email_envoi(email):
     if settings.DEBUG:
-        emails = (settings.EMAIL_DEV, )
+        emails = settings.EMAIL_DEV
     else:
-        emails = (email, )
+        emails = email
     return emails
 
 

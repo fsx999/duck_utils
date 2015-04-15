@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.template import Library
-
+from django.conf import settings
 
 TEMPLATEADDONS_COUNTERS_VARIABLE = '_templateaddons_counters'
 register = Library()
@@ -12,7 +12,6 @@ from django.utils.encoding import force_unicode
 @register.filter
 def get_range(value):
     return range(value)
-
 
 
 class Counter:
@@ -164,13 +163,18 @@ def decode_tag_arguments(token, default_arguments={}):
     return arguments
 
 
+@register.simple_tag
+def centre_univ():
+    return getattr(settings, 'CENTRE_UNIV', 'IED')
 
 
-
-
-
-
-
+@register.simple_tag
+def centre_univ_format():
+    centre = getattr(settings, 'CENTRE_UNIV', 'IED')
+    if centre[0].lower() in 'aeiouy':
+        return 'à l\'{}'.format(centre)
+    else:
+        return 'au {}'.format(centre)
 
 
 
