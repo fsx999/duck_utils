@@ -1,12 +1,9 @@
 # coding=utf-8
-import tempfile
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.loader import render_to_string
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 from mailrobot.models import MailBody
-from wkhtmltopdf import wkhtmltopdf
 from django_apogee.models import Etape
 from duck_utils.utils import make_pdf
 
