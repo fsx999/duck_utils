@@ -61,8 +61,8 @@ def render_to_temporary_file(template_name, context,  mode='w+b', bufsize=-1,
             tempfile.close()
             raise
 
-def make_pdf(name, context, header_filename=None, footer_filename=None, output=None):
-    cmd_options = {}
+def make_pdf(name, context, header_filename=None, footer_filename=None, output=None, cmd_options={}):
+    cmd_options =cmd_options.copy()
     if header_filename is not None:
         header = render_to_temporary_file(header_filename, context)
         cmd_options['header_html'] = header.name
@@ -103,12 +103,12 @@ class MultiPDFTemplateResponse(PDFTemplateResponse):
         return o.getvalue()
 
 
-def make_multi_pdf(context, templates, files=[]):
+def make_multi_pdf(context, templates, files=[], cmd_options={}):
     output = PdfFileWriter()
-
+    cmd_options = cmd_options.copy()
     for template in templates:
         buffer = cStringIO.StringIO()
-        buffer.write(make_pdf(template['name'], context, template.get('header', None), template.get('footer', None)), )
+        buffer.write(make_pdf(template['name'], context, template.get('header', None), template.get('footer', None), cmd_options=cmd_options))
         append_pdf(PdfFileReader(buffer), output)
     for file in files:
         append_pdf(PdfFileReader(file), output)
