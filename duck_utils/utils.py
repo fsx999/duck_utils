@@ -111,7 +111,9 @@ def make_multi_pdf(context, templates, files=[], cmd_options={}):
         buffer.write(make_pdf(template['name'], context, template.get('header', None), template.get('footer', None), cmd_options=cmd_options))
         append_pdf(PdfFileReader(buffer), output)
     for file in files:
+
         append_pdf(PdfFileReader(file), output)
+
     o = cStringIO.StringIO()
     output.write(o)
     return o.getvalue()
