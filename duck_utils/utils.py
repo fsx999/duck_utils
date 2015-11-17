@@ -16,6 +16,13 @@ def email_ied(individu):
 
 
 def get_recipients(individu, cod_anu):
+    '''
+    Retrieves email adresses (official and/or personal) of an individual for a given year
+    If in debug mode retrieves a debug email adress
+    :param individu: The instance of a student
+    :param cod_anu: String containing the year (email adress can change from one year to the other)
+    :return: A tuple of email adresses (personal, email_ied)
+    '''
     if settings.DEBUG:
         recipients = (settings.EMAIL_DEV, )
     else:
@@ -28,6 +35,11 @@ def get_recipients(individu, cod_anu):
 
 
 def get_email_envoi(email):
+    '''
+    Returns a test email adress, depending on if we are in debug mode or not
+    :param email: Original email adress
+    :return: Either the test email adress or the original
+    '''
     if settings.DEBUG:
         emails = settings.EMAIL_DEV
     else:
