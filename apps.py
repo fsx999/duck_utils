@@ -32,3 +32,4 @@ class DuckUtils(AppConfig):
         "groups_permissions": [],  # facultatif
         "permissions": [],  # facultatif
     }, ]
+
